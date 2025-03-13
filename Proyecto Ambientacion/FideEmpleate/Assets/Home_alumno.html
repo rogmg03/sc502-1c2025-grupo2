@@ -88,6 +88,7 @@
         .card-shadow {
             padding: 20px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
         }
 
 
@@ -142,31 +143,44 @@
         <div class="container mt-4 flex" style="align-content: space-between;">
             <!-- Primera fila -->
             <div class="d-flex flex-wrap gap-3">
-                <div class="flex-fill p-3 col-md-5 card-shadow border rounded">
-                    <h5>Curriculum Activo</h5>
-                    <div class="row student-card">
-                        <div class="col-md-5">
-                            <img src="Images/user.png"
-                                style="margin-top: 20px; height: 200px; border-radius: 100%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);" />
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <h5>John Doe</h5>
-                            <br>
-                            <p style="font-weight: 500;">Software Developer</p>
-                            <p>San Pedro, San José, Costa Rica</p>
-                            <div>
-                                <button class="btn btn-info" style="background-color: #2b338c;color: white;">Ver
-                                    curriculum</button>
+                <div class="row">
+                    <div class="col-md-8 col-lg-6 col-xl-6">
+                        <div class="flex-fill p-3 row card-shadow border rounded">
+                            <h5>Curriculum Activo</h5>
+                            <div class="row student-card flex flex-wrap" style="flex-wrap: wrap; flex-direction: row;">
+                                <div class="col-md-6 col-lg-6 d-flex">
+                                    <img src="Images/user.png" class="mx-auto"
+                                        style="margin-top: 20px; height: 200px; border-radius: 100%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);" />
+                                </div>
+                                <div class="col-md-6 col-lg-6 text-center">
+                                    <h5>John Doe</h5>
+                                    <br>
+                                    <p style="font-weight: 500;">Software Developer</p>
+                                    <p>San Pedro, San José, Costa Rica</p>
+                                    <div>
+                                        <button class="btn btn-info" style="background-color: #2b338c;color: white;">Ver
+                                            curriculum</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="flex-fill p-3 row card-shadow border rounded text-center">
+                            <h5>Total Empleos Aplicados</h5>
+                            <p>4</p>
+                        </div>
+                        <div class="flex-fill p-3 row card-shadow border rounded text-center">
+                            <h5>Total de Empleos en la Plataforma</h5>
+                            <p>350</p>
+                        </div>
+                        <div class="flex-fill p-3 row card-shadow border rounded text-center">
+                            <h5>Vistas a tu perfil</h5>
+                            <p>8</p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex-fill p-3 col-md-5 card-shadow border rounded"">
+                    <div class="flex-fill p-3 col-md-1 col-lg-4 col-xl-5 card-shadow border rounded"">
                     <h5>Empleos más requeridos</h5>
-                    
-
-
-                    <div class="card-body">
+ 
+                    <div class=" card-body">
                         <div class="chart">
                             <canvas id="property_types" class="pie"></canvas>
                             <div id="pie_legend" class="py-3 text-left col-md-7 mx-auto"></div>
@@ -175,25 +189,12 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <div class="flex-fill p-3 col-md-5 card-shadow border rounded text-center">
-            <h5>Total Empleos Aplicados</h5>
-            <p>4</p>
-        </div>
-        <div class="flex-fill p-3 col-md-5 card-shadow border rounded text-center">
-            <h5>Total de Empleos en la Plataforma</h5>
-            <p>350</p>
-        </div>
-        <div class="flex-fill p-3 col-md-5 card-shadow border rounded text-center">
-            <h5>Vistas a tu perfil</h5>
-            <p>8</p>
-        </div>
-        <div class="flex-fill p-3 col-md-5 card-shadow border rounded text-center">
-            <h5>Otra Tarjeta de Información</h5>
-            <p>Datos adicionales relevantes</p>
-        </div>
+
+
     </div>
 
     </div>
