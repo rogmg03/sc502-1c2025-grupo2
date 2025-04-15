@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="app/views/css/styles.css">
+    <link rel="stylesheet" href="../app/views/css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
@@ -20,7 +20,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
         <div class="container-fluid d-flex align-items-center">
-            <img src="app/views/img/Logo_Universidad_Fidélitas.jpg" alt="Logo"
+            <img src="../app/views/img/Logo_Universidad_Fidélitas.jpg" alt="Logo"
                 style="height: 80px; width: 80px; margin-right: 10px;">
             <strong class="mx-auto text-white fs-3">Fide Empleate</strong>
         </div>
@@ -58,7 +58,7 @@
 
             <div id="response" class="mt-3"></div>
             <p class="text-center mt-3">
-                ¿No tienes cuenta? <a href="Registro.html">Regístrate aquí</a>.
+                ¿No tienes cuenta? <a href="<?php echo APP_URL; ?>register/">Regístrate aquí</a>.
             </p>
         </div>
     </div>

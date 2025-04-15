@@ -11,6 +11,7 @@ class loginController extends mainModel
 	{
 		$usuario = $this->limpiarCadena($_POST['usuario']);
 		$clave = $this->limpiarCadena($_POST['contrasena']);
+		$hash = password_hash("12345", PASSWORD_DEFAULT);
 
 		if ($usuario == "" || $clave == "") {
 
@@ -18,10 +19,11 @@ class loginController extends mainModel
 
 			// Verificar si el usuario existe en la base de datos
 			$check_usuario = $this->ejecutarConsulta("SELECT * FROM usuarios WHERE correo_electronico = '$usuario'");
+			
 
 			if ($check_usuario->rowCount() == 1) {
 				$check_usuario = $check_usuario->fetch();
-
+				
 				// Verificar contraseña
 				if ($check_usuario['correo_electronico'] == $usuario && password_verify($clave, $check_usuario['contrasena'])) {
 					// Iniciar sesión
@@ -30,6 +32,8 @@ class loginController extends mainModel
 					$_SESSION['correo'] = $check_usuario['correo_electronico'];
 					$_SESSION['rol'] = $check_usuario['rol'];
 					//$_SESSION['foto'] = $check_usuario['usuario_foto'];
+
+					$_SESSION['usuario'] = $check_usuario['correo_electronico'];
 
 					if (headers_sent()) {
 						if ($_SESSION['rol'] == 'Estudiante') {
