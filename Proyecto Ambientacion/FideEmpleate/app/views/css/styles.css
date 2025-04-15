@@ -1,0 +1,95 @@
+.color-yellow{
+    background-color: #ffda00;
+}
+
+.color-blue{
+    background-color: #001bb3;
+}
+
+/* Vertical Navigation Bar */
+.vertical-nav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #001bb3;
+    padding-top: 20px;
+  }
+  
+  .vertical-nav img {
+    display: block;
+    margin: 0 auto 20px auto;
+    height: 150px;
+    width: 150px;
+  }
+  
+  .vertical-nav .usuario {
+    text-align: center;
+    color: mintcream;
+    font-size: 20px;
+    margin-bottom: 1px;
+  }
+  
+  .vertical-nav .correo {
+    text-align: center;
+    color: mintcream;
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+  
+  .vertical-nav .horizontal-divider {
+    border-top: 2px solid white;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .vertical-nav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: mintcream;
+    display: block;
+  }
+  
+  .vertical-nav a:hover {
+    background-color: #001bb3;
+  }
+  
+  .vertical-nav a.active-link {
+    background-color: white;
+    color: #001bb3;
+    font-weight: bold;
+  }
+  
+  .logout-btn {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    left: 5%;
+    color: white;
+  }
+  
+  /* Main Content */
+  .main-content {
+    margin-left: 250px;
+    padding: 40px;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .card-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  

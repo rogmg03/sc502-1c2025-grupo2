@@ -96,15 +96,16 @@
 
 
     <div class="vertical-nav">
-        <img src="./Images/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
 
         <div class="usuario">userUfide</div>
         <div class="correo">correo@ufide.ac.cr</div>
         <hr class="horizontal-divider">
-        <a href="Home_reclutador.html" class="link-activo">Inicio</a>
-        <a href="ver_empleos.html">Lista de empleos</a>
-        <a href="Contactar.html">Chat</a>
-        <button class="btn btn-secondary logout-btn">Logout</button>
+        <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>
+        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
+        <button class="btn btn-secondary logout-btn" id="btn_exit">Logout</button>
     </div>
 
     <div class="main-content">
@@ -118,7 +119,7 @@
                     <h5>Alumnos Destacados</h5>
                     <div class="row student-card">
                         <div class="col-md-5">
-                            <img src="Images/user.png"
+                            <img src="../app/views/img/user.png"
                                 style="margin-top: 20px; height: 200px; border-radius: 100%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);" />
                         </div>
                         <div class="col-md-6 text-center">
@@ -130,13 +131,13 @@
                                 <button class="btn btn-info" style="background-color: #2b338c;color: white;">Ver
                                     perfil</button>
                                 <button class="btn btn-info"
-                                    style="background-color: #ffda00;color: #2b338c">Mensaje</button>
+                                    style="background-color: #ffda00;color: #2b338c">Contactar</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flex-fill p-3 col-md-5 card-shadow border rounded"">
-                    <h5>Job Chart</h5>
+                    <h5>Postulaciones por empleo</h5>
                     <canvas id="jobChart"></canvas>
                 </div>
 
