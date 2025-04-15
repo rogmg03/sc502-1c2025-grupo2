@@ -1,14 +1,42 @@
+<?php
+include("conexion.php");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = $_POST["nombrePuesto"];
+    $area = $_POST["areaPuesto"];
+    $descripcion = $_POST["descripcionPuesto"];
+    $requisitos = $_POST["requisitosPuesto"];
+    $modalidad = $_POST["modalidadPuesto"];
+    $ubicacion = $_POST["ubicacionPuesto"];
+    $salario = $_POST["salarioPuesto"] ?: null; // puede ser NULL
+    $fecha_publicacion = $_POST["fechaPublicacion"];
+    $estado = $_POST["estadoPuesto"];
+
+    $stmt = $conexion->prepare("INSERT INTO empleos 
+        (nombre, area, descripcion, requisitos, modalidad, ubicacion, salario, fecha_publicacion, estado)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssiss", $nombre, $area, $descripcion, $requisitos, $modalidad, $ubicacion, $salario, $fecha_publicacion, $estado);
+
+    if ($stmt->execute()) {
+        header("Location: confirmacion.php");
+        exit();
+    } else {
+        echo "Error al guardar empleo: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conexion->close();
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agregar Empleo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-
-  <!-- Mover a styles.css cuando este listo-->
 
   <style>
     .vertical-nav {
@@ -107,7 +135,7 @@
     <hr class="horizontal-divider" />
 
     <a href="Home_reclutador.html">Inicio</a>
-    <a href="ver_empleos_agente.html" class="link-activo">Lista de empleos</a>
+    <a href="ver_empleos_agente.html" class="active-link">Lista de empleos</a>
     <a href="lista_alumnos.html">Alumnos Disponibles</a>
     <a href="chat_agente.html">Chat Alumnos</a>
 
@@ -120,16 +148,15 @@
 
       <div class="card card-form">
         <div class="card-body">
-          <form>
+          <form action="agregar_empleo.php" method="POST">
             <div class="mb-3">
               <label for="nombrePuesto" class="form-label">Nombre del Puesto</label>
-              <input type="text" class="form-control" id="nombrePuesto" placeholder="Ej. Desarrollador Full Stack"
-                required />
+              <input type="text" class="form-control" id="nombrePuesto" name="nombrePuesto" placeholder="Ej. Desarrollador Full Stack" required />
             </div>
 
             <div class="mb-3">
               <label for="areaPuesto" class="form-label">Área</label>
-              <select class="form-select" id="areaPuesto" required>
+              <select class="form-select" id="areaPuesto" name="areaPuesto" required>
                 <option selected disabled>Seleccione un área</option>
                 <option value="Tecnología">Tecnología</option>
                 <option value="Administración">Administración</option>
@@ -140,19 +167,17 @@
 
             <div class="mb-3">
               <label for="descripcionPuesto" class="form-label">Descripción del Puesto</label>
-              <textarea class="form-control" id="descripcionPuesto" rows="4"
-                placeholder="Describe el puesto..."></textarea>
+              <textarea class="form-control" id="descripcionPuesto" name="descripcionPuesto" rows="4" placeholder="Describe el puesto..."></textarea>
             </div>
 
             <div class="mb-3">
               <label for="requisitosPuesto" class="form-label">Requisitos</label>
-              <textarea class="form-control" id="requisitosPuesto" rows="3"
-                placeholder="Ej. Título universitario, 2 años de experiencia..."></textarea>
+              <textarea class="form-control" id="requisitosPuesto" name="requisitosPuesto" rows="3" placeholder="Ej. Título universitario, 2 años de experiencia..."></textarea>
             </div>
 
             <div class="mb-3">
               <label for="modalidadPuesto" class="form-label">Modalidad</label>
-              <select class="form-select" id="modalidadPuesto" required>
+              <select class="form-select" id="modalidadPuesto" name="modalidadPuesto" required>
                 <option selected disabled>Seleccione la modalidad</option>
                 <option value="Presencial">Presencial</option>
                 <option value="Remoto">Remoto</option>
@@ -162,22 +187,22 @@
 
             <div class="mb-3">
               <label for="ubicacionPuesto" class="form-label">Ubicación</label>
-              <input type="text" class="form-control" id="ubicacionPuesto" placeholder="Ej. San José, Costa Rica" />
+              <input type="text" class="form-control" id="ubicacionPuesto" name="ubicacionPuesto" placeholder="Ej. San José, Costa Rica" />
             </div>
 
             <div class="mb-3">
               <label for="salarioPuesto" class="form-label">Salario (opcional)</label>
-              <input type="number" class="form-control" id="salarioPuesto" placeholder="Ej. 800000" />
+              <input type="number" class="form-control" id="salarioPuesto" name="salarioPuesto" placeholder="Ej. 800000" />
             </div>
 
             <div class="mb-3">
               <label for="fechaPublicacion" class="form-label">Fecha de Publicación</label>
-              <input type="date" class="form-control" id="fechaPublicacion" required />
+              <input type="date" class="form-control" id="fechaPublicacion" name="fechaPublicacion" required />
             </div>
 
             <div class="mb-3">
               <label for="estadoPuesto" class="form-label">Estado del Empleo</label>
-              <select class="form-select" id="estadoPuesto" required>
+              <select class="form-select" id="estadoPuesto" name="estadoPuesto" required>
                 <option value="Activo">Activo</option>
                 <option value="Inactivo">Inactivo</option>
               </select>
