@@ -133,7 +133,7 @@
         <a href="ver_cv.html">Mis Curriculums</a>
         <a href="ver_empleos_alumno.html">Lista de empleos</a>
         <a href="chat.html">Chat</a>
-        <button class="btn btn-secondary logout-btn" id="btn_exit">Logout</button>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
 
     <div class="main-content">
