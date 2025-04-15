@@ -24,7 +24,7 @@
 
 
 		/*----------  Funcion ejecutar consultas  ----------*/
-		protected function ejecutarConsulta($consulta){
+		public function ejecutarConsulta($consulta){
 			$sql=$this->conectar()->prepare($consulta);
 			$sql->execute();
 			return $sql;
@@ -150,6 +150,18 @@
             return $sql;
         }
 
+    	/*---------- Funcion contar registros con o sin condición ----------*/
+    public function contarRegistros($tabla, $condicion = "") {
+        $query = "SELECT COUNT(*) AS total FROM $tabla";
+        if (!empty($condicion)) {
+            $query .= " WHERE $condicion";
+        }
+
+        $sql = $this->conectar()->prepare($query);
+        $sql->execute();
+        $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+        return $resultado['total'] ?? 0;
+    }
 
 		/*---------- Paginador de tablas ----------*/
 		protected function paginadorTablas($pagina,$numeroPaginas,$url,$botones){
@@ -204,5 +216,7 @@
 	        $tabla.='</nav>';
 	        return $tabla;
 	    }
+
+		
 	    
 	}

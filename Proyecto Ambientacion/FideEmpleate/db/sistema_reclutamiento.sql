@@ -184,6 +184,7 @@ CREATE TABLE `cv` (
   id_usuario INT NOT NULL,
   id_informacion_personal INT NOT NULL,
   fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  activo BOOLEAN DEFAULT 0,
   PRIMARY KEY (id_cv),
   UNIQUE (id_usuario),
   CONSTRAINT fk_cv_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
