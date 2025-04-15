@@ -3,10 +3,12 @@
 namespace app\controllers;
 use app\models\mainModel;
 
-class empleoController extends mainModel {
+class agregar_empleoController extends mainModel {
 
-    public function agregarEmpleoControlador() {
+    public function agregar_empleoController() {
         // Obtener y limpiar los datos
+        $idReclutador = $_SESSION['id'];
+        $usuario_reclutador = $idReclutador;
         $nombre            = $this->limpiarCadena($_POST["nombrePuesto"] ?? '');
         $area              = $this->limpiarCadena($_POST["areaPuesto"] ?? '');
         $descripcion       = $this->limpiarCadena($_POST["descripcionPuesto"] ?? '');
@@ -27,7 +29,8 @@ class empleoController extends mainModel {
 
         // Armar arreglo de datos
         $datos = [
-            ["campo_nombre" => "nombre",             "campo_marcador" => ":Nombre",      "campo_valor" => $nombre],
+            ["campo_nombre" => "id_usuario_reclutador", "campo_marcador" => ":IdReclutador", "campo_valor" => $idReclutador],
+            ["campo_nombre" => "nombre_puesto",             "campo_marcador" => ":Nombre",      "campo_valor" => $nombre],
             ["campo_nombre" => "area",               "campo_marcador" => ":Area",        "campo_valor" => $area],
             ["campo_nombre" => "descripcion",        "campo_marcador" => ":Descripcion", "campo_valor" => $descripcion],
             ["campo_nombre" => "requisitos",         "campo_marcador" => ":Requisitos",  "campo_valor" => $requisitos],
