@@ -105,7 +105,7 @@
         <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
         <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
         <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
-        <button class="btn btn-secondary logout-btn" id="btn_exit">Logout</button>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
 
     <div class="main-content">
