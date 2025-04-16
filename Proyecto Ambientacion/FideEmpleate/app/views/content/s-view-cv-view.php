@@ -126,8 +126,8 @@
         <hr class="horizontal-divider">
         <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
-        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
-        <a href="<?php echo APP_URL; ?>a-chat/">Chat</a>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
   

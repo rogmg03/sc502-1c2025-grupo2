@@ -30,6 +30,16 @@
 			return $sql;
 		}
 
+		/*----------  Funcion ejecutar consulta con parametros  ----------*/
+		public function ejecutarConsultaParametros($consulta, $parametros = []) {
+			$sql = $this->conectar()->prepare($consulta);
+			foreach ($parametros as $clave => $valor) {
+				$sql->bindValue($clave, $valor);
+			}
+			$sql->execute();
+			return $sql;
+		}
+
 
 		/*----------  Funcion limpiar cadenas  ----------*/
 		public function limpiarCadena($cadena){
@@ -61,7 +71,7 @@
 
 
 		/*----------  Funcion para ejecutar una consulta INSERT preparada  ----------*/
-		protected function guardarDatos($tabla,$datos){
+		public function guardarDatos($tabla,$datos){
 
 			$query="INSERT INTO $tabla (";
 
