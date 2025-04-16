@@ -1,20 +1,36 @@
 <?php
-// s-add-cv-view.php
+use app\controllers\agregarCVController;
 
-// Aquí puedes agregar la inclusión de encabezados y otros archivos PHP necesarios
+$cvController = new agregarCVController();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $mensaje = $cvController->agregarCVController();
+
+    echo "<script>
+        Swal.fire({
+            title: '¡Éxito!',
+            text: '$mensaje',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>";
+}
 ?>
+
+<!-- Aquí iría todo el HTML del formulario que ya te compartí previamente, con JS incluido para añadir/eliminar bloques dinámicos -->
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agregar CV</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./css/styles.css" rel="stylesheet" /> <!-- Referencia al archivo CSS unificado -->
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        .form-section { display: none; }
+        .form-section.active { display: block; }
         .vertical-nav {
             height: 100%;
             width: 250px;
@@ -22,7 +38,6 @@
             top: 0;
             left: 0;
             background-color: #001bb3;
-            /* Color azul */
             padding-top: 20px;
         }
 
@@ -33,16 +48,18 @@
             width: 150px;
         }
 
-        .vertical-nav .usuario {
+        .vertical-nav .usuario,
+        .vertical-nav .correo {
             text-align: center;
             color: mintcream;
+        }
+
+        .vertical-nav .usuario {
             font-size: 20px;
             margin-bottom: 1px;
         }
 
         .vertical-nav .correo {
-            text-align: center;
-            color: mintcream;
             font-size: 15px;
             font-style: italic;
             margin-bottom: 5px;
@@ -82,56 +99,35 @@
 
         .main-content {
             margin-left: 250px;
-            padding: 15px;
+            padding: 40px;
+            min-height: 100vh;
+            background-color: #f8f9fa;
         }
 
-        .job-list {
-            margin-top: 40px;
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        .card-shadow {
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
-        }
-
-
-        .chart {
-            height: 500px;
+        .card-form {
             width: 100%;
-        }
-
-        .pie-legend {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .pie-legend span {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border-radius: 100%;
-            margin-right: 16px;
-            margin-bottom: -2px;
-        }
-
-        .pie-legend li {
+            max-width: 600px;
+            padding: 20px;
             margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
+        .btn-close { z-index: 10; }
+        
     </style>
-
-
-
 </head>
-
 <body>
     <div class="vertical-nav">
         <img src="../app/views/img/userImg.png" alt="Logo" />
         <div class="usuario">userUfide</div>
         <div class="correo">correo@ufide.ac.cr</div>
         <hr class="horizontal-divider" />
-
         <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
         <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
@@ -140,136 +136,170 @@
     </div>
 
     <div class="main-content">
-        <div class="form-container">
-            <h2 class="mb-4">Agregar Curriculum</h2>
-
-            <div class="card card-form">
-                <div class="card-body">
-                    <form>
-                        <h3 class="mb-4">Información Personal</h3>
-                        <div id="informacionPersonal" class="form-section active">
-                            <label for="nombreEstudiante" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombreEstudiante" required />
-                            <label for="apellidosEstudiante" class="form-label mt-2">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidosEstudiante" required />
-                            <label for="fechaNacimientoEstudiante" class="form-label mt-2">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNacimientoEstudiante" required />
-                            <label for="cedulaEstudiante" class="form-label mt-2">Cédula</label>
-                            <input type="number" class="form-control" id="cedulaEstudiante" required />
-                            <label for="telefonoEstudiante" class="form-label mt-2">Número de teléfono</label>
-                            <input type="number" class="form-control" id="telefonoEstudiante" required />
-                            <label for="emailEstudiante" class="form-label mt-2">Email</label>
-                            <input type="email" class="form-control" id="emailEstudiante" required />
-                            <label for="direccionEstudiante" class="form-label mt-2">Dirección</label>
-                            <textarea class="form-control" id="direccionEstudiante" rows="4"
-                                placeholder="Provincia, Cantón, Distrito..." required></textarea>
-
-                            <label for="descripcionSobreMi" class="form-label mt-2">Sobre mí</label>
-                            <textarea class="form-control" id="descripcionSobreMi" rows="4"
-                                placeholder="Describe como eres..."></textarea>
-
-                            <label for="areaEstudiante" class="form-label mt-2">Estudiante de: </label>
-                            <select class="form-select" id="areaEstudiante" required>
-                                <option selected disabled>Seleccione un área</option>
-                                <option value="Tecnología">Tecnología</option>
-                                <option value="Administración">Administración</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="Finanzas">Finanzas</option>
-                            </select>
-                        </div>
-
-                        <h3 class="mb-4 mt-5">Experiencia Laboral</h3>
-                        <div id="experienciaLaboral" class="form-section">
-                            <label for="cargo" class="form-label">Cargo</label>
-                            <input type="text" class="form-control" id="cargo" required />
-                            <label for="tipoEmpleo" class="form-label mt-2">Tipo de empleo</label>
-                            <input type="text" class="form-control" id="tipoEmpleo" required />
-                            <label for="empresa" class="form-label mt-2">Empresa</label>
-                            <input type="text" class="form-control" id="empresa" required />
-                            <label for="fechaInicio" class="form-label mt-2">Fecha de inicio</label>
-                            <input type="date" class="form-control" id="fechaInicio" required />
-                            <label for="fechaFin" class="form-label mt-2">Fecha de finalización </label>
-                            <input type="date" class="form-control" id="fechaFin" required />
-                            <label for="ubicacion" class="form-label mt-2">Ubicación</label>
-                            <input type="text" class="form-control" id="ubicacion" required />
-                            <label for="modalidad" class="form-label mt-2">Modalidad</label>
-                            <select class="form-select" id="modalidadPuesto" required>
-                                <option selected disabled>Seleccione la modalidad</option>
-                                <option value="Presencial">Presencial</option>
-                                <option value="Remoto">Remoto</option>
-                                <option value="Híbrido">Híbrido</option>
-                            </select>
-
-                            <label for="descripciondelempleo" class="form-label mt-2">Descripción</label>
-                            <textarea class="form-control" id="descripciondelempleo" rows="4"
-                                placeholder="Describe la empresa..."></textarea>
-                        </div>
-
-                        <h3 class="mb-4 mt-5">Formación</h3>
-                        <div id="formacion" class="form-section">
-                            <label for="institucionEducativa" class="form-label">Institución educativa</label>
-                            <input type="text" class="form-control" id="institucionEducativa" required />
-                            <label for="titulo" class="form-label mt-2">Título</label>
-                            <input type="text" class="form-control" id="titulo" required />
-                            <label for="fechaInicio" class="form-label mt-2">Fecha de inicio</label>
-                            <input type="date" class="form-control" id="fechaInicio" required />
-                            <label for="fechaFin" class="form-label mt-2">Fecha de finalización </label>
-                            <input type="date" class="form-control" id="fechaFin" required />
-                        </div>
-
-                        <hr>
-
-                        <div>
-                            <button style="font-weight: bolder; border-radius: 100%; color:white; margin-left: 46%;"
-                                class="btn-info btn btn-center">+</button>
-                        </div>
-
-                        <h3 class="mb-4 mt-5">Certificaciones</h3>
-                        <div id="certificados" class="form-section">
-                            <label for="nombreCertificado" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombreCertificado" required />
-                            <label for="empresaEmisora" class="form-label mt-2">Empresa emisora</label>
-                            <input type="text" class="form-control" id="empresaEmisora" required />
-                            <label for="fechaExpedicion" class="form-label mt-2">Fecha de expedición</label>
-                            <input type="date" class="form-control" id="fechaExpedicion" required />
-                            <label for="fechaCaducidad" class="form-label mt-2">Fecha de caducidad</label>
-                            <input type="date" class="form-control" id="fechaCaducidad" required />
-                            <label for="idcredenciales" class="form-label mt-2">ID de la credencial</label>
-                            <input type="number" class="form-control" id="idcredenciales" required />
-                            <label for="urlcredenciales" class="form-label mt-2">URL de la credencial</label>
-                            <input type="url" class="form-control" id="urlcredenciales" required />
-                        </div>
-
-                        <hr>
-
-                        <div>
-                            <button style="font-weight: bolder; border-radius: 100%; color:white; margin-left: 46%;"
-                                class="btn-info btn btn-center">+</button>
-                        </div>
-
-                        <nav aria-label="Page navigation example" class="form-label mt-2">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link">Anterior</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Siguiente</a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">Guardar Curriculum</button>
-                            <button type="reset" class="btn btn-secondary">Limpiar Curriculum</button>
-                        </div>
-                    </form>
-                </div>
+        <h2>Agregar Curriculum</h2>
+        <form method="POST">
+            <div class="form-section active" data-index="0">
+                <h3>Información Personal</h3>
+                <input name="nombre" class="form-control mb-2" placeholder="Nombre" required>
+                <input name="apellidos" class="form-control mb-2" placeholder="Apellidos" required>
+                <input type="date" name="fecha_nacimiento" class="form-control mb-2" required>
+                <input name="cedula" class="form-control mb-2" placeholder="Cédula" required>
+                <input name="telefono" class="form-control mb-2" placeholder="Teléfono" required>
+                <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+                <textarea name="direccion" class="form-control mb-2" placeholder="Dirección" required></textarea>
+                <textarea name="descripcion" class="form-control mb-2" placeholder="Sobre mí"></textarea>
+                <input name="estudiante_de" class="form-control mb-2" placeholder="Carrera" required>
             </div>
-        </div>
-    </div>
-</body>
 
+            <div class="form-section" data-index="1">
+                <h3>Experiencia Laboral</h3>
+                <div id="contenedorExperiencias"></div>
+                <button type="button" class="btn btn-info mt-3" id="btnAgregarExperiencia">+ Agregar experiencia</button>
+            </div>
+
+            <div class="form-section" data-index="2">
+                <h3>Formación</h3>
+                <div id="contenedorFormaciones"></div>
+                <button type="button" class="btn btn-info mt-3" id="btnAgregarFormacion">+ Agregar formación</button>
+            </div>
+
+            <div class="form-section" data-index="3">
+                <h3>Certificaciones</h3>
+                <div id="contenedorCertificados"></div>
+                <button type="button" class="btn btn-info mt-3" id="btnAgregarCertificado">+ Agregar certificación</button>
+            </div>
+
+            <ul class="pagination mt-4">
+                <li class="page-item"><a class="page-link" href="#" data-page="0">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="1">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="2">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="3">4</a></li>
+            </ul>
+
+            <button type="submit" class="btn btn-primary">Guardar Curriculum</button>
+        </form>
+    </div>
+
+    <script>
+    document.querySelectorAll(".page-link").forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            let page = parseInt(this.dataset.page);
+            document.querySelectorAll(".form-section").forEach((sec, idx) => {
+                sec.classList.toggle("active", idx === page);
+                sec.classList.toggle("d-none", idx !== page);
+            });
+            document.querySelectorAll(".page-item").forEach(li => li.classList.remove("active"));
+            this.parentElement.classList.add("active");
+        });
+    });
+
+    document.getElementById("btnAgregarExperiencia").addEventListener("click", () => {
+        const html = `
+        <div class='grupo-experiencia border p-3 mb-3 rounded position-relative'>
+            <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+            
+            <label class="form-label mt-2">Cargo</label>
+            <input name='cargo[]' class='form-control mb-2' placeholder='Cargo' required>
+
+            <label class="form-label mt-2">Tipo de empleo</label>
+            <input name='tipo_empleo[]' class='form-control mb-2' placeholder='Tipo de empleo'>
+
+            <label class="form-label mt-2">Empresa</label>
+            <input name='empresa[]' class='form-control mb-2' placeholder='Empresa' required>
+
+            <label class="form-label mt-2">Fecha de inicio</label>
+            <input type='date' name='fecha_inicio[]' class='form-control mb-2'>
+
+            <label class="form-label mt-2">Fecha de finalización</label>
+            <input type='date' name='fecha_fin[]' class='form-control mb-2'>
+
+            <label class="form-label mt-2">Ubicación</label>
+            <input name='ubicacion[]' class='form-control mb-2' placeholder='Ubicación'>
+
+            <label class="form-label mt-2">Modalidad</label>
+            <select name='modalidad[]' class='form-select mb-2'>
+                <option disabled selected>Seleccione la modalidad</option>
+                <option value='Presencial'>Presencial</option>
+                <option value='Remoto'>Remoto</option>
+                <option value='Híbrido'>Híbrido</option>
+            </select>
+
+            <label class="form-label mt-2">Descripción</label>
+            <textarea name='descripciondelempleo[]' class='form-control' placeholder='Descripción del empleo'></textarea>
+        </div>`;
+        document.getElementById("contenedorExperiencias").insertAdjacentHTML("beforeend", html);
+    });
+
+    document.getElementById("btnAgregarFormacion").addEventListener("click", () => {
+        const html = `
+        <div class='grupo-formacion border p-3 mb-3 rounded position-relative'>
+            <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+
+            <label class="form-label mt-2">Institución educativa</label>
+            <input name='institucion[]' class='form-control mb-2' placeholder='Institución' required>
+
+            <label class="form-label mt-2">Título</label>
+            <input name='titulo[]' class='form-control mb-2' placeholder='Título' required>
+
+            <label class="form-label mt-2">Fecha de inicio</label>
+            <input type='date' name='fecha_inicio[]' class='form-control mb-2'>
+
+            <label class="form-label mt-2">Fecha de finalización</label>
+            <input type='date' name='fecha_fin[]' class='form-control mb-2'>
+        </div>`;
+        document.getElementById("contenedorFormaciones").insertAdjacentHTML("beforeend", html);
+    });
+
+    document.getElementById("btnAgregarCertificado").addEventListener("click", () => {
+        const html = `
+        <div class='grupo-certificado border p-3 mb-3 rounded position-relative'>
+            <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+
+            <label class="form-label mt-2">Nombre</label>
+            <input name='nombre_certificado[]' class='form-control mb-2' placeholder='Nombre del certificado' required>
+
+            <label class="form-label mt-2">Empresa emisora</label>
+            <input name='empresa_emisora[]' class='form-control mb-2' placeholder='Empresa emisora' required>
+
+            <label class="form-label mt-2">Fecha de expedición</label>
+            <input type='date' name='fecha_expedicion[]' class='form-control mb-2'>
+
+            <label class="form-label mt-2">Fecha de caducidad</label>
+            <input type='date' name='fecha_caducidad[]' class='form-control mb-2'>
+
+            <label class="form-label mt-2">ID de la credencial</label>
+            <input name='idcredenciales[]' class='form-control mb-2' placeholder='ID de la credencial'>
+
+            <label class="form-label mt-2">URL de la credencial</label>
+            <input name='urlcredenciales[]' class='form-control mb-2' placeholder='URL de la credencial'>
+        </div>`;
+        document.getElementById("contenedorCertificados").insertAdjacentHTML("beforeend", html);
+    });
+
+    document.addEventListener("click", function(e) {
+        if (e.target.classList.contains("btn-eliminar")) {
+            const bloque = e.target.closest(".grupo-experiencia, .grupo-formacion, .grupo-certificado");
+            if (bloque) {
+                Swal.fire({
+                    title: '¿Eliminar bloque?',
+                    text: "Esta acción no se puede deshacer.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        bloque.remove();
+                        Swal.fire({ icon: 'success', title: 'Eliminado', showConfirmButton: false, timer: 1000 });
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+</body>
 </html>
