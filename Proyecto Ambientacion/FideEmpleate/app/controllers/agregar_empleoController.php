@@ -45,9 +45,9 @@ class agregar_empleoController extends mainModel {
         $guardar = $this->guardarDatos("empleos", $datos);
 
         if ($guardar->rowCount() == 1) {
-            return "Empleo guardado con éxito.";
+            return "✅ Empleo guardado con éxito.";
         } else {
-            return "Error al guardar el empleo. Inténtalo más tarde.";
+            return "⚠️ Error al guardar el empleo. Inténtalo más tarde.";
         }
     }
 }

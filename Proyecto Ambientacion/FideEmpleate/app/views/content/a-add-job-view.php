@@ -113,20 +113,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-  <div class="vertical-nav">
-    <img src="../app/views/img/userImg.png" alt="Logo" />
-
-    <div class="usuario">userUfide</div>
-    <div class="correo">correo@ufide.ac.cr</div>
-    <hr class="horizontal-divider" />
-
-    <a href="Home_reclutador.html">Inicio</a>
-    <a href="ver_empleos_agente.html" class="active-link">Lista de empleos</a>
-    <a href="lista_alumnos.html">Alumnos Disponibles</a>
-    <a href="chat_agente.html">Chat Alumnos</a>
-
-    <button class="btn btn-secondary logout-btn">Logout</button>
-  </div>
+<div class="vertical-nav">
+        <img src="../app/views/img/userImg.png" alt="Logo" />
+        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+        <hr class="horizontal-divider" />
+        <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>
+        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+    </div>
 
   <div class="main-content">
     <div class="form-container">

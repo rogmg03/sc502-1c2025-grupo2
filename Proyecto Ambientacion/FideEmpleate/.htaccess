@@ -1,3 +1,9 @@
 RewriteEngine On
-Options All -Indexes
-RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1
+RewriteBase /FideEmpleate/
+
+# No aplicar rewrites si es un archivo o directorio real
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirigir todo lo demás a index.php
+RewriteRule ^([a-zA-Z0-9/_-]+)$ index.php?views=$1 [QSA,L]
