@@ -14,15 +14,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mensaje = $cvController->actualizarCVController($id_cv);
     echo "<script>
         Swal.fire({
-            title: 'Actualizado',
+            title: '¡Éxito!',
             text: '$mensaje',
             icon: 'success',
             confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = '" . APP_URL . "s-view-cv/';
         });
     </script>";
 }
-?>
 
+?>
+<?php if (isset($_SESSION['cv_mensaje']) && isset($_SESSION['cv_redirect'])): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: "<?= $_SESSION['cv_mensaje'] ?>",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "<?= APP_URL ?>s-view-cv/";
+            });
+        });
+    </script>
+    <?php
+    unset($_SESSION['cv_mensaje']);
+    unset($_SESSION['cv_redirect']);
+?>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -35,8 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
     <style>
-        .form-section { display: none; }
-        .form-section.active { display: block; }
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
         .main-content {
             margin-left: 250px;
             padding: 40px;
@@ -58,7 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
-        .btn-close { z-index: 10; }
+
+        .btn-close {
+            z-index: 10;
+        }
     </style>
 
 </head>
@@ -148,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
 
             const experienciaHTML = () => `<div class='grupo-experiencia border p-3 mb-3 rounded position-relative'>
-        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar-custom'></button>
         <input name='cargo[]' class='form-control mb-2' placeholder='Cargo' required>
         <input name='tipo_empleo[]' class='form-control mb-2' placeholder='Tipo de empleo'>
         <input name='empresa[]' class='form-control mb-2' placeholder='Empresa' required>
@@ -165,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>`;
 
             const formacionHTML = () => `<div class='grupo-formacion border p-3 mb-3 rounded position-relative'>
-        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar-custom'></button>
         <input name='institucion[]' class='form-control mb-2' placeholder='Institución' required>
         <input name='titulo[]' class='form-control mb-2' placeholder='Título' required>
         <input type='date' name='fecha_inicio[]' class='form-control mb-2'>
@@ -173,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>`;
 
             const certificadoHTML = () => `<div class='grupo-certificado border p-3 mb-3 rounded position-relative'>
-        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
+        <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar-custom'></button>
         <input name='nombre_certificado[]' class='form-control mb-2' placeholder='Nombre del certificado' required>
         <input name='empresa_emisora[]' class='form-control mb-2' placeholder='Empresa emisora' required>
         <input type='date' name='fecha_expedicion[]' class='form-control mb-2'>
@@ -237,7 +267,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     grupo.querySelector('[name="urlcredenciales[]"]').value = cert[i].url_credencial;
                 });
             }, 300);
+
+            
         });
+
+        document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("btn-eliminar-custom")) {
+        e.preventDefault();
+        
+        const bloque = e.target.closest(".grupo-experiencia, .grupo-formacion, .grupo-certificado");
+        if (bloque) {
+            Swal.fire({
+                title: '¿Eliminar bloque?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    bloque.remove();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Eliminado',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            });
+        }
+    }
+});
+        
     </script>
 </body>
 
