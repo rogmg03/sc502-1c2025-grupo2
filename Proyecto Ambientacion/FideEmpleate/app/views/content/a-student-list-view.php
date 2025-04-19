@@ -42,7 +42,7 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-bordered align-middle">
-                        <thead class="table-dark">
+                        <thead >
                             <tr>
                                 <th>Nombre</th>
                                 <th>Carrera</th>
