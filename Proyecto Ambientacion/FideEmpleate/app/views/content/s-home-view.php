@@ -124,15 +124,15 @@
 
 
     <div class="vertical-nav">
-        <img src="./Images/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
 
         <div class="usuario">userUfide</div>
         <div class="correo">correo@ufide.ac.cr</div>
         <hr class="horizontal-divider">
-        <a href="Home_reclutador.html" class="link-activo">Inicio</a>
-        <a href="ver_cv.html">Mis Curriculums</a>
-        <a href="ver_empleos_alumno.html">Lista de empleos</a>
-        <a href="chat.html">Chat</a>
+        <a href="<?php echo APP_URL; ?>s-home/" class="link-activo">Inicio</a>
+        <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
 
@@ -149,7 +149,7 @@
                             <h5>Curriculum Activo</h5>
                             <div class="row student-card flex flex-wrap" style="flex-wrap: wrap; flex-direction: row;">
                                 <div class="col-md-6 col-lg-6 d-flex">
-                                    <img src="Images/user.png" class="mx-auto"
+                                    <img src="../app/views/img/user.png" class="mx-auto"
                                         style="margin-top: 20px; height: 200px; border-radius: 100%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);" />
                                 </div>
                                 <div class="col-md-6 col-lg-6 text-center">

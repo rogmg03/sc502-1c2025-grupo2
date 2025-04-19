@@ -16,7 +16,7 @@
 
 
 		/*----------  Funcion conectar a BD  ----------*/
-		protected function conectar(){
+		public function conectar(){
 			$conexion = new PDO("mysql:host=".$this->server.";dbname=".$this->db,$this->user,$this->pass);
 			$conexion->exec("SET CHARACTER SET utf8");
 			return $conexion;
@@ -26,6 +26,16 @@
 		/*----------  Funcion ejecutar consultas  ----------*/
 		public function ejecutarConsulta($consulta){
 			$sql=$this->conectar()->prepare($consulta);
+			$sql->execute();
+			return $sql;
+		}
+
+		/*----------  Funcion ejecutar consulta con parametros  ----------*/
+		public function ejecutarConsultaParametros($consulta, $parametros = []) {
+			$sql = $this->conectar()->prepare($consulta);
+			foreach ($parametros as $clave => $valor) {
+				$sql->bindValue($clave, $valor);
+			}
 			$sql->execute();
 			return $sql;
 		}
@@ -61,7 +71,7 @@
 
 
 		/*----------  Funcion para ejecutar una consulta INSERT preparada  ----------*/
-		protected function guardarDatos($tabla,$datos){
+		public function guardarDatos($tabla,$datos){
 
 			$query="INSERT INTO $tabla (";
 

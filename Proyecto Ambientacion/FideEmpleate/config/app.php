@@ -3,10 +3,9 @@
 	const APP_URL="http://localhost/FideEmpleate/";
 	const APP_NAME="Fide Empleate";
 	const APP_SESSION_NAME="fide_empleate";
-	
+	define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . '/FIDEEMPLEATE/');
 
-
-	/*----------  Zona horaria  ----------*/
+		/*----------  Zona horaria  ----------*/
 	date_default_timezone_set("America/Costa_Rica");
 
 	/*

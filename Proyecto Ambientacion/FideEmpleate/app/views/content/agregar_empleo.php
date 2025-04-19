@@ -1,17 +1,31 @@
 <?php
-use app\controllers\agregar_empleoController;
-use app\models\mainModel;
+include("conexion.php");
 
-$model = new mainModel();
-$empleo = new agregar_empleoController();
-
-$idReclutador = $_SESSION['id'];
-
-$mensaje = "";
-
-// Si el formulario fue enviado
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $mensaje = $empleo->agregar_empleoController();
+    $nombre = $_POST["nombrePuesto"];
+    $area = $_POST["areaPuesto"];
+    $descripcion = $_POST["descripcionPuesto"];
+    $requisitos = $_POST["requisitosPuesto"];
+    $modalidad = $_POST["modalidadPuesto"];
+    $ubicacion = $_POST["ubicacionPuesto"];
+    $salario = $_POST["salarioPuesto"] ?: null; // puede ser NULL
+    $fecha_publicacion = $_POST["fechaPublicacion"];
+    $estado = $_POST["estadoPuesto"];
+
+    $stmt = $conexion->prepare("INSERT INTO empleos 
+        (nombre, area, descripcion, requisitos, modalidad, ubicacion, salario, fecha_publicacion, estado)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssiss", $nombre, $area, $descripcion, $requisitos, $modalidad, $ubicacion, $salario, $fecha_publicacion, $estado);
+
+    if ($stmt->execute()) {
+        header("Location: confirmacion.php");
+        exit();
+    } else {
+        echo "Error al guardar empleo: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conexion->close();
 }
 ?>
 
@@ -113,17 +127,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-<div class="vertical-nav">
-        <img src="../app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
-        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-        <hr class="horizontal-divider" />
-        <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>
-        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
-        <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
-        <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
-        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-    </div>
+  <div class="vertical-nav">
+    <img src="./Images/userImg.png" alt="Logo" />
+
+    <div class="usuario">userUfide</div>
+    <div class="correo">correo@ufide.ac.cr</div>
+    <hr class="horizontal-divider" />
+
+    <a href="Home_reclutador.html">Inicio</a>
+    <a href="ver_empleos_agente.html" class="active-link">Lista de empleos</a>
+    <a href="lista_alumnos.html">Alumnos Disponibles</a>
+    <a href="chat_agente.html">Chat Alumnos</a>
+
+    <button class="btn btn-secondary logout-btn">Logout</button>
+  </div>
 
   <div class="main-content">
     <div class="form-container">
@@ -131,14 +148,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       <div class="card card-form">
         <div class="card-body">
-          <?php if (!empty($mensaje)): ?>
-            <div class="alert alert-info text-center"><?php echo $mensaje; ?></div>
-          <?php endif; ?>
-          <form action="" method="POST">
+          <form action="agregar_empleo.php" method="POST">
             <div class="mb-3">
               <label for="nombrePuesto" class="form-label">Nombre del Puesto</label>
-              <input type="text" class="form-control" id="nombrePuesto" name="nombrePuesto"
-                placeholder="Ej. Desarrollador Full Stack" required />
+              <input type="text" class="form-control" id="nombrePuesto" name="nombrePuesto" placeholder="Ej. Desarrollador Full Stack" required />
             </div>
 
             <div class="mb-3">
@@ -154,14 +167,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="mb-3">
               <label for="descripcionPuesto" class="form-label">Descripción del Puesto</label>
-              <textarea class="form-control" id="descripcionPuesto" name="descripcionPuesto" rows="4"
-                placeholder="Describe el puesto..."></textarea>
+              <textarea class="form-control" id="descripcionPuesto" name="descripcionPuesto" rows="4" placeholder="Describe el puesto..."></textarea>
             </div>
 
             <div class="mb-3">
               <label for="requisitosPuesto" class="form-label">Requisitos</label>
-              <textarea class="form-control" id="requisitosPuesto" name="requisitosPuesto" rows="3"
-                placeholder="Ej. Título universitario, 2 años de experiencia..."></textarea>
+              <textarea class="form-control" id="requisitosPuesto" name="requisitosPuesto" rows="3" placeholder="Ej. Título universitario, 2 años de experiencia..."></textarea>
             </div>
 
             <div class="mb-3">
@@ -176,14 +187,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="mb-3">
               <label for="ubicacionPuesto" class="form-label">Ubicación</label>
-              <input type="text" class="form-control" id="ubicacionPuesto" name="ubicacionPuesto"
-                placeholder="Ej. San José, Costa Rica" />
+              <input type="text" class="form-control" id="ubicacionPuesto" name="ubicacionPuesto" placeholder="Ej. San José, Costa Rica" />
             </div>
 
             <div class="mb-3">
               <label for="salarioPuesto" class="form-label">Salario (opcional)</label>
-              <input type="number" class="form-control" id="salarioPuesto" name="salarioPuesto"
-                placeholder="Ej. 800000" />
+              <input type="number" class="form-control" id="salarioPuesto" name="salarioPuesto" placeholder="Ej. 800000" />
             </div>
 
             <div class="mb-3">
