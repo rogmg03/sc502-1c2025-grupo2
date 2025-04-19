@@ -15,17 +15,18 @@ use app\controllers\viewsController;
 use app\controllers\loginController;
 
 $insLogin = new loginController();
+
 $viewsController= new viewsController();
 $vista = $viewsController->obtenerVistasControlador(rtrim($url[0], "/"));
 
 if (in_array($vista, ["login", "register", "404"])) {
-    require_once "./app/views/content/{$vista}-view.php";
+    require_once "./app/views/content/{$vista}";
 } else {
     if (empty($_SESSION['id']) || empty($_SESSION['correo'])) {
-        $insLogin->cerrarSesionControlador(); // o redirige
+        $insLogin->cerrarSesionControlador();
         exit();
     }
-    require_once "./app/views/content/{$vista}-view.php";
+    require_once "./app/views/content/{$vista}";
 }
 
 
