@@ -35,6 +35,7 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
         <a href="<?php echo APP_URL; ?>a-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
         <a href="<?php echo APP_URL; ?>a-student-list/" class="link-activo">Alumnos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>a-postings/">Postulaciones</a>
         <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
