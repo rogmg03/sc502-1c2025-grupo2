@@ -30,17 +30,26 @@ $valores = json_encode(array_column($datosGrafico, 'cantidad'));
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Inicio - Estudiante</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
+
 <body>
     <div class="vertical-nav">
         <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
-        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
         <hr class="horizontal-divider">
         <a href="<?php echo APP_URL; ?>s-home/" class="link-activo">Inicio</a>
@@ -61,7 +70,8 @@ $valores = json_encode(array_column($datosGrafico, 'cantidad'));
                         <?php if ($cvActivo): ?>
                             <div class="row align-items-center">
                                 <div class="col-md-6 text-center">
-                                    <img src="../app/views/img/user.png" style="margin-top: 20px; height: 180px; border-radius: 100%; box-shadow: 2px 2px 6px rgba(0,0,0,0.2);" />
+                                    <img src="../app/views/img/user.png"
+                                        style="margin-top: 20px; height: 180px; border-radius: 100%; box-shadow: 2px 2px 6px rgba(0,0,0,0.2);" />
                                 </div>
                                 <div class="col-md-6 text-center">
                                     <h5><?php echo $_SESSION['nombre']; ?></h5>
@@ -76,7 +86,8 @@ $valores = json_encode(array_column($datosGrafico, 'cantidad'));
                                 <h6 class="mt-3 text-danger">¡Importante!</h6>
                                 <p class="text-muted">Sección de CV activo. Agregue un curriculum para continuar.</p>
                                 <p><strong>Debe registrar un CV para ser visto por los agentes reclutadores.</strong></p>
-                                <a href="<?php echo APP_URL; ?>s-add-cv/" class="btn btn-warning text-dark fw-bold">Agregar CV</a>
+                                <a href="<?php echo APP_URL; ?>s-add-cv/" class="btn btn-warning text-dark fw-bold">Agregar
+                                    CV</a>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -119,4 +130,5 @@ $valores = json_encode(array_column($datosGrafico, 'cantidad'));
         });
     </script>
 </body>
+
 </html>

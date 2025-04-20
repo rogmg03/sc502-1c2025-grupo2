@@ -72,12 +72,18 @@ $datosJSON = json_encode($datos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
     <div class="vertical-nav">
         <img src="../app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>a-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
         <hr class="horizontal-divider" />
         <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>

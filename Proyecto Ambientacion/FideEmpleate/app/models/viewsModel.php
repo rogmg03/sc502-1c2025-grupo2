@@ -13,7 +13,8 @@
 				"a-add-job", "a-chat", "a-home", "a-student-list", "s-home",
 				"a-view-jobs", "s-view-jobs", "a-edit-job", "a-modify-job",
 				"a-delete-job", "userPhoto", "logOut", "register",
-				"s-view-cv", "s-add-cv", "s-apply-to-job", "s-edit-cv"
+				"s-view-cv", "s-add-cv", "s-apply-to-job", "s-edit-cv",
+				"s-edit-info", "a-edit-info"
 			];
 		
 			if (in_array($nombreVista, $listaBlanca)) {

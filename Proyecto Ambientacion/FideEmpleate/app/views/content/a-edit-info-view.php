@@ -57,7 +57,7 @@ $controller->actualizarUsuario($id_usuario);
       </form>
 
       <p class="text-center mt-3">
-        <a class="btn btn-secondary" href="<?php echo APP_URL; ?>s-home/">Volver al inicio</a>
+        <a class="btn btn-secondary" href="<?php echo APP_URL; ?>a-home/">Volver al inicio</a>
       </p>
     </div>
   </div>
