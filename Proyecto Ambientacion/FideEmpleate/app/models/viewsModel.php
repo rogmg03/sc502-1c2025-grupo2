@@ -21,7 +21,12 @@
 				$archivo = "./app/views/content/" . $nombreVista . "-view.php";
 		
 				if (file_exists($archivo)) {
-					return $nombreVista . "-view.php";
+					if ($nombreVista == "register"){
+						return $nombreVista;
+					}else{
+						return $nombreVista . "-view.php";
+					}
+					
 				} else {
 					return "404";
 				}
