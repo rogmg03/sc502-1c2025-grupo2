@@ -1,5 +1,4 @@
 <?php
-
 namespace app\controllers;
 use app\models\mainModel;
 use PDO;
@@ -70,5 +69,5 @@ class verPostulacionesController extends mainModel {
         ]);
         return $stmt->rowCount() > 0;
     }
-    
+  
 }

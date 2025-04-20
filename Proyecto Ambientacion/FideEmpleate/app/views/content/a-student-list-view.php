@@ -16,6 +16,7 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
     <meta charset="UTF-8">
     <title>Alumnos Disponibles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
 </head>
 
@@ -23,12 +24,18 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
 
     <div class="vertical-nav">
         <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>a-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
         <hr class="horizontal-divider" />
         <a href="<?php echo APP_URL; ?>a-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
         <a href="<?php echo APP_URL; ?>a-student-list/" class="link-activo">Alumnos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>a-postings/">Postulaciones</a>
         <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
@@ -42,7 +49,7 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-bordered align-middle">
-                        <thead class="table-dark">
+                        <thead >
                             <tr>
                                 <th>Nombre</th>
                                 <th>Carrera</th>
