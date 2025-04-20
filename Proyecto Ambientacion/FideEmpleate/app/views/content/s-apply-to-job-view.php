@@ -41,9 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -53,110 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Detalles del Empleo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .vertical-nav {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #001bb3;
-            padding-top: 20px;
-        }
-
-        .vertical-nav img {
-            display: block;
-            margin: 0 auto 20px auto;
-            height: 150px;
-            width: 150px;
-        }
-
-        .vertical-nav .usuario,
-        .vertical-nav .correo {
-            text-align: center;
-            color: mintcream;
-        }
-
-        .vertical-nav .usuario {
-            font-size: 20px;
-            margin-bottom: 1px;
-        }
-
-        .vertical-nav .correo {
-            font-size: 15px;
-            font-style: italic;
-            margin-bottom: 5px;
-        }
-
-        .vertical-nav .horizontal-divider {
-            border-top: 2px solid white;
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        .vertical-nav a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: mintcream;
-            display: block;
-        }
-
-        .vertical-nav a:hover {
-            background-color: #001bb3;
-        }
-
-        .vertical-nav a.link-activo {
-            background-color: white;
-            color: #001bb3;
-            font-weight: bold;
-        }
-
-        .logout-btn {
-            position: absolute;
-            bottom: 20px;
-            width: 90%;
-            left: 5%;
-            color: white;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 40px;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-        }
-
-        .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .card-form {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
 </head>
 
 <body>
 
-    <div class="vertical-nav">
-        <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario">userUfide</div>
-        <div class="correo">correo@ufide.ac.cr</div>
-        <hr class="horizontal-divider" />
-        <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
-        <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Currículums</a>
-        <a href="<?php echo APP_URL; ?>s-view-jobs/" class="link-activo">Lista de Empleos</a>
-        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
-        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-    </div>
+<div class="vertical-nav">
+    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
+    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+    <hr class="horizontal-divider" />
+    <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
+	<a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
+    <a href="<?php echo APP_URL; ?>s-view-jobs/" class="link-activo">Empleos Disponibles</a>
+    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+</div>
 
     <div class="main-content">
         <h2>Detalles del Empleo</h2>
