@@ -5,22 +5,36 @@
 	class viewsModel{
 
 		/*---------- Modelo obtener vista ----------*/
-		protected function obtenerVistasModelo($vista){
-
-			$listaBlanca=["a-add-job","a-chat","a-home","a-student-list","s-home","a-view-jobs", "a-edit-job", "a-modify-job", "a-delete-job", "a-student-list", "userPhoto","logOut", "register", "s-view-cv", "s-add-cv","s-apply-to-job"];
-
-			if(in_array($vista, $listaBlanca)){
-				if(is_file("./app/views/content/".$vista."-view.php")){
-					$contenido="./app/views/content/".$vista."-view.php";
-				}else{
-					$contenido="404";
+		protected function obtenerVistasModelo($vista) {
+			$partes = explode("/", $vista);
+			$nombreVista = $partes[0];
+		
+			$listaBlanca = [
+				"a-add-job", "a-chat", "a-home", "a-student-list", "s-home",
+				"a-view-jobs", "s-view-jobs", "a-edit-job", "a-modify-job",
+				"a-delete-job", "userPhoto", "logOut", "register",
+				"s-view-cv", "s-add-cv", "s-apply-to-job", "s-edit-cv"
+			];
+		
+			if (in_array($nombreVista, $listaBlanca)) {
+				// Siempre busca el archivo con -view.php
+				$archivo = "./app/views/content/" . $nombreVista . "-view.php";
+		
+				if (file_exists($archivo)) {
+					if ($nombreVista == "register"){
+						return $nombreVista;
+					}else{
+						return $nombreVista . "-view.php";
+					}
+					
+				} else {
+					return "404";
 				}
-			}elseif($vista=="login" || $vista=="index"){
-				$contenido="login";
-			}else{
-				$contenido="404";
+			} elseif ($nombreVista == "login" || $nombreVista == "index") {
+				return "login";
+			} else {
+				return "404";
 			}
-			return $contenido;
 		}
-
+		
 	}

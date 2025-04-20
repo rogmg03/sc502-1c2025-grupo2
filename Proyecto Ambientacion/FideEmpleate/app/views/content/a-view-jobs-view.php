@@ -32,6 +32,7 @@ $empleos = $empleosPDO->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -41,8 +42,8 @@ $empleos = $empleosPDO->fetchAll(PDO::FETCH_ASSOC);
         <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
         <hr class="horizontal-divider" />
-        <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>
-        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>a-home/" >Inicio</a>
+        <a href="<?php echo APP_URL; ?>a-view-jobs/" class="link-activo">Lista de empleos</a>
         <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
         <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
@@ -58,7 +59,7 @@ $empleos = $empleosPDO->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-bordered align-middle">
-                        <thead class="table-dark">
+                        <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Área</th>
@@ -103,7 +104,7 @@ $empleos = $empleosPDO->fetchAll(PDO::FETCH_ASSOC);
                                             <a href="<?php echo APP_URL . 'a-edit-job/?id=' . $empleo['id_empleo']; ?>"
                                                 class="btn btn-secondary btn-sm">Editar</a>
                                             <a href="<?php echo APP_URL . 'a-delete-job/?id=' . $empleo['id_empleo']; ?>"
-                                                class="btn btn-danger btn-sm"
+                                                class="btn btn-eliminar btn-danger btn-sm"
                                                 onclick="return confirm('¿Deseas eliminar este empleo? Esta acción no se puede deshacer.')">
                                                 Eliminar
                                             </a>
@@ -174,6 +175,29 @@ $empleos = $empleosPDO->fetchAll(PDO::FETCH_ASSOC);
             document.getElementById('modalSalario').textContent = "₡" + button.getAttribute('data-salario');
 
         });
+
+        document.addEventListener("click", function(e) {
+        if (e.target.classList.contains("btn-eliminar")) {
+            const bloque = e.target.closest(".btn-danger");
+            if (bloque) {
+                Swal.fire({
+                    title: '¿Eliminar bloque?',
+                    text: "Esta acción no se puede deshacer.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        bloque.remove();
+                        Swal.fire({ icon: 'success', title: 'Eliminado', showConfirmButton: false, timer: 1000 });
+                    }
+                });
+            }
+        }
+    });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
