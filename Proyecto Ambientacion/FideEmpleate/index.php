@@ -24,8 +24,15 @@ $paginasPublicas = ["home", "login", "register", "404"];
 
 // Si la vista es pública
 if (in_array($vista, $paginasPublicas)) {
-    require_once "./app/views/content/" . $vista . "-view.php";
-    exit();
+    if ($vista == "exportar-pdf" && isset($url[1])) {
+        $exportar = new \app\controllers\exportarPDFController();
+        $exportar->exportarCV($url[1]);
+        exit();
+    } else {
+
+        require_once "./app/views/content/" . $vista . "-view.php";
+        exit();
+    }
 }
 
 // Vista privada (requiere sesión)
@@ -39,3 +46,6 @@ $vistaRuta = $viewsController->obtenerVistasControlador($vista);
 require_once $vistaRuta;
 
 require_once "./app/views/inc/script.php";
+
+
+
