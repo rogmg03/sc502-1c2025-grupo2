@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
 <body>
 
     <div class="vertical-nav">
-        <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
+    <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
         <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
             <span><?php echo $_SESSION['nombre']; ?></span>
             <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
@@ -56,12 +56,12 @@ if (isset($_GET['id'])) {
             </a>
         </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-        <hr class="horizontal-divider" />
+        <hr class="horizontal-divider">
         <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
-        <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
-        <a href="<?php echo APP_URL; ?>s-student-list/">Alumnos Disponibles</a>
-        <a href="<?php echo APP_URL; ?>s-postings/">Postulaciones</a>
-        <a href="<?php echo APP_URL; ?>s-chat/" class="link-activo">Chat Alumnos</a>
+        <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+        <a href="<?php echo APP_URL; ?>s-chat/" class="link-activo">Chat</a>
         <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
     </div>
 

@@ -18,24 +18,44 @@ if ($id_usuario) {
     <meta charset="UTF-8">
     <title>Curriculums Agregados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../app/views/css/styles.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
-   </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
 <body>
-<div class="vertical-nav">
-    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
-    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-    <hr class="horizontal-divider" />
-    <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
-	<a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
-    <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
-    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
-	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
-    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-</div>
+
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <script>
+            Swal.fire({
+                icon: '<?= $_SESSION['mensaje']['tipo'] ?>',
+                title: '¡Listo!',
+                text: '<?= $_SESSION['mensaje']['texto'] ?>',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+        <?php unset($_SESSION['mensaje']); ?>
+    <?php endif; ?>
+
+    <div class="vertical-nav">
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
+        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+        <hr class="horizontal-divider">
+        <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
+        <a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+    </div>
+
     <div class="main-content">
         <h2>Curriculums Agregados</h2>
         <a href="<?php echo APP_URL; ?>s-add-cv/" class="btn btn-dark btn-sm py-1" id="agregarCurriculum">Agregar

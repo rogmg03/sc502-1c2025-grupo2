@@ -76,7 +76,7 @@ $postulaciones = $model->obtenerPostulacionesAsignadas($reclutador);
                         </div>
                     </td>
                     <td>
-                        <a href="<?= APP_URL ?>s-profile/<?= $p['id_estudiante'] ?>/" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="<?= APP_URL ?>a-profile/<?= $p['id_estudiante'] ?>/" class="btn btn-primary btn-sm">Ver</a>
                         <button class="btn btn-success btn-sm" onclick="abrirModal(<?= $p['id_postulacion'] ?>, 'Seleccionado')">Seleccionar</button>
                         <button class="btn btn-danger btn-sm" onclick="abrirModal(<?= $p['id_postulacion'] ?>, 'Rechazado')">Rechazar</button>
                     </td>

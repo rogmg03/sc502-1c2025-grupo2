@@ -1,37 +1,41 @@
 <?php
-session_start(); // <--- AGREGAR ESTO DIRECTAMENTE
+session_start();
 
 require_once "./config/app.php";
 require_once "./autoload.php";
-
-/*---------- Iniciando sesión ----------*/
 require_once "./app/views/inc/session_start.php";
-
-if(isset($_GET['views'])){
-    $url=explode("/", $_GET['views']);
-}else{
-    $url=["login"];
-}
 
 use app\controllers\viewsController;
 use app\controllers\loginController;
 
+$viewsController = new viewsController();
 $insLogin = new loginController();
 
-$viewsController= new viewsController();
-$vista = $viewsController->obtenerVistasControlador(rtrim($url[0], "/"));
+// Separar vista e ID de la URL
+$segmentos = isset($_GET['views']) ? explode("/", $_GET['views']) : ["home"];
+$vista = $segmentos[0];
+$id = $segmentos[1] ?? null;
 
-if (in_array($vista, ["login", "register", "404"])) {
-    require_once "./app/views/content/{$vista}-view.php";
-} else {
-    if (empty($_SESSION['id']) || empty($_SESSION['correo'])) {
-        $insLogin->cerrarSesionControlador();
-        exit();
-    }
-    require_once "./app/views/content/{$vista}";
+if ($id) {
+    $_GET['id'] = $id;
 }
 
+$paginasPublicas = ["home", "login", "register", "404"];
 
-require_once "./app/views/inc/script.php"; 
+// Si la vista es pública
+if (in_array($vista, $paginasPublicas)) {
+    require_once "./app/views/content/" . $vista . "-view.php";
+    exit();
+}
 
+// Vista privada (requiere sesión)
+if (empty($_SESSION['id']) || empty($_SESSION['correo'])) {
+    header("Location: " . APP_URL . "home/");
+    exit();
+}
 
+// Vista válida y protegida
+$vistaRuta = $viewsController->obtenerVistasControlador($vista);
+require_once $vistaRuta;
+
+require_once "./app/views/inc/script.php";

@@ -69,7 +69,7 @@ $estudiantes = $modeloEstudiantes->obtenerEstudiantesDisponibles();
                                         <td><?php echo htmlspecialchars($est['email']); ?></td>
                                         <td><?php echo htmlspecialchars($est['direccion']); ?></td>
                                         <td>
-                                            <a href="<?php echo APP_URL; ?>s-profile/<?php echo $est['id_usuario']; ?>/"
+                                            <a href="<?php echo APP_URL; ?>a-profile/<?php echo $est['id_usuario']; ?>/"
                                                 class="btn btn-primary btn-sm">Ver Perfil</a>
                                             <a href="<?php echo APP_URL; ?>a-chat/?id=<?php echo $est['id_usuario']; ?>"
                                                 class="btn btn-success btn-sm">Contactar</a>

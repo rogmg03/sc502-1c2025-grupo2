@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,21 +30,127 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <style>
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .vertical-nav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #001bb3;
+            padding-top: 20px;
+        }
+
+        .vertical-nav img {
+            display: block;
+            margin: 0 auto 20px auto;
+            height: 150px;
+            width: 150px;
+        }
+
+        .vertical-nav .usuario,
+        .vertical-nav .correo {
+            text-align: center;
+            color: mintcream;
+        }
+
+        .vertical-nav .usuario {
+            font-size: 20px;
+            margin-bottom: 1px;
+        }
+
+        .vertical-nav .correo {
+            font-size: 15px;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .vertical-nav .horizontal-divider {
+            border-top: 2px solid white;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .vertical-nav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: mintcream;
+            display: block;
+        }
+
+        .vertical-nav a:hover {
+            background-color: #001bb3;
+        }
+
+        .vertical-nav a.link-activo {
+            background-color: white;
+            color: #001bb3;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            left: 5%;
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .card-form {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-close {
+            z-index: 10;
+        }
+    </style>
 </head>
+
 <body>
-<div class="vertical-nav">
-    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
-    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-    <hr class="horizontal-divider" />
-    <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
+    <div class="vertical-nav">
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
+        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+        <hr class="horizontal-divider">
+        <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
-    <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
-    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
-	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
-    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-</div>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+    </div>
 
     <div class="main-content">
         <h2>Agregar Curriculum</h2>
@@ -64,7 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-section" data-index="1">
                 <h3>Experiencia Laboral</h3>
                 <div id="contenedorExperiencias"></div>
-                <button type="button" class="btn btn-info mt-3" id="btnAgregarExperiencia">+ Agregar experiencia</button>
+                <button type="button" class="btn btn-info mt-3" id="btnAgregarExperiencia">+ Agregar
+                    experiencia</button>
             </div>
 
             <div class="form-section" data-index="2">
@@ -76,7 +184,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-section" data-index="3">
                 <h3>Certificaciones</h3>
                 <div id="contenedorCertificados"></div>
-                <button type="button" class="btn btn-info mt-3" id="btnAgregarCertificado">+ Agregar certificación</button>
+                <button type="button" class="btn btn-info mt-3" id="btnAgregarCertificado">+ Agregar
+                    certificación</button>
             </div>
 
             <ul class="pagination mt-4">
@@ -91,21 +200,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-    document.querySelectorAll(".page-link").forEach(link => {
-        link.addEventListener("click", function(e) {
-            e.preventDefault();
-            let page = parseInt(this.dataset.page);
-            document.querySelectorAll(".form-section").forEach((sec, idx) => {
-                sec.classList.toggle("active", idx === page);
-                sec.classList.toggle("d-none", idx !== page);
+        document.querySelectorAll(".page-link").forEach(link => {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                let page = parseInt(this.dataset.page);
+                document.querySelectorAll(".form-section").forEach((sec, idx) => {
+                    sec.classList.toggle("active", idx === page);
+                    sec.classList.toggle("d-none", idx !== page);
+                });
+                document.querySelectorAll(".page-item").forEach(li => li.classList.remove("active"));
+                this.parentElement.classList.add("active");
             });
-            document.querySelectorAll(".page-item").forEach(li => li.classList.remove("active"));
-            this.parentElement.classList.add("active");
         });
-    });
 
-    document.getElementById("btnAgregarExperiencia").addEventListener("click", () => {
-        const html = `
+        document.getElementById("btnAgregarExperiencia").addEventListener("click", () => {
+            const html = `
         <div class='grupo-experiencia border p-3 mb-3 rounded position-relative'>
             <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
             
@@ -138,11 +247,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label class="form-label mt-2">Descripción</label>
             <textarea name='descripciondelempleo[]' class='form-control' placeholder='Descripción del empleo'></textarea>
         </div>`;
-        document.getElementById("contenedorExperiencias").insertAdjacentHTML("beforeend", html);
-    });
+            document.getElementById("contenedorExperiencias").insertAdjacentHTML("beforeend", html);
+        });
 
-    document.getElementById("btnAgregarFormacion").addEventListener("click", () => {
-        const html = `
+        document.getElementById("btnAgregarFormacion").addEventListener("click", () => {
+            const html = `
         <div class='grupo-formacion border p-3 mb-3 rounded position-relative'>
             <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
 
@@ -158,11 +267,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label class="form-label mt-2">Fecha de finalización</label>
             <input type='date' name='fecha_fin[]' class='form-control mb-2'>
         </div>`;
-        document.getElementById("contenedorFormaciones").insertAdjacentHTML("beforeend", html);
-    });
+            document.getElementById("contenedorFormaciones").insertAdjacentHTML("beforeend", html);
+        });
 
-    document.getElementById("btnAgregarCertificado").addEventListener("click", () => {
-        const html = `
+        document.getElementById("btnAgregarCertificado").addEventListener("click", () => {
+            const html = `
         <div class='grupo-certificado border p-3 mb-3 rounded position-relative'>
             <button type='button' class='btn-close position-absolute top-0 end-0 m-2 btn-eliminar'></button>
 
@@ -184,32 +293,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label class="form-label mt-2">URL de la credencial</label>
             <input name='urlcredenciales[]' class='form-control mb-2' placeholder='URL de la credencial'>
         </div>`;
-        document.getElementById("contenedorCertificados").insertAdjacentHTML("beforeend", html);
-    });
+            document.getElementById("contenedorCertificados").insertAdjacentHTML("beforeend", html);
+        });
 
-    document.addEventListener("click", function(e) {
-        if (e.target.classList.contains("btn-eliminar")) {
-            const bloque = e.target.closest(".grupo-experiencia, .grupo-formacion, .grupo-certificado");
-            if (bloque) {
-                Swal.fire({
-                    title: '¿Eliminar bloque?',
-                    text: "Esta acción no se puede deshacer.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        bloque.remove();
-                        Swal.fire({ icon: 'success', title: 'Eliminado', showConfirmButton: false, timer: 1000 });
-                    }
-                });
+        document.addEventListener("click", function (e) {
+            if (e.target.classList.contains("btn-eliminar")) {
+                const bloque = e.target.closest(".grupo-experiencia, .grupo-formacion, .grupo-certificado");
+                if (bloque) {
+                    Swal.fire({
+                        title: '¿Eliminar bloque?',
+                        text: "Esta acción no se puede deshacer.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            bloque.remove();
+                            Swal.fire({ icon: 'success', title: 'Eliminado', showConfirmButton: false, timer: 1000 });
+                        }
+                    });
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 </body>
+
 </html>

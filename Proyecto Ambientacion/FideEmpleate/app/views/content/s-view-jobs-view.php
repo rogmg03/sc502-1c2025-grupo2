@@ -19,75 +19,86 @@ $empleos = $empleoModel->obtenerEmpleosDisponiblesNoPostulados($id_estudiante, $
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Empleos Disponibles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
+
 <body>
 
-<div class="vertical-nav">
-    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
-    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-    <hr class="horizontal-divider" />
-    <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
-	<a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
-    <a href="<?php echo APP_URL; ?>s-view-jobs/" class="link-activo">Empleos Disponibles</a>
-    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
-	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
-    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-</div>
-
-<div class="main-content">
-    <h2>Empleos Disponibles</h2>
-
-    <form method="GET" action="">
-        <div class="input-group mb-3">
-            <input type="text" name="q" class="form-control" placeholder="Buscar por puesto o área" value="<?php echo htmlspecialchars($filtro); ?>">
-            <button class="btn btn-primary">Buscar</button>
+    <div class="vertical-nav">
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
         </div>
-    </form>
+        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+        <hr class="horizontal-divider">
+        <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
+        <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
+        <a href="<?php echo APP_URL; ?>s-view-jobs/" class="link-activo">Empleos Disponibles</a>
+        <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+    </div>
 
-    <div class="job-list">
-        <div class="card">
-            <div class="card-header">Resultados</div>
-            <div class="card-body">
-                <?php if (count($empleos) > 0): ?>
-                    <table class="table table-striped table-bordered">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Puesto</th>
-                                <th>Área</th>
-                                <th>Modalidad</th>
-                                <th>Ubicación</th>
-                                <th>Salario</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($empleos as $e): ?>
+    <div class="main-content">
+        <h2>Empleos Disponibles</h2>
+
+        <form method="GET" action="">
+            <div class="input-group mb-3">
+                <input type="text" name="q" class="form-control" placeholder="Buscar por puesto o área"
+                    value="<?php echo htmlspecialchars($filtro); ?>">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <div class="job-list">
+            <div class="card">
+                <div class="card-header">Resultados</div>
+                <div class="card-body">
+                    <?php if (count($empleos) > 0): ?>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
                                 <tr>
-                                    <td><?php echo htmlspecialchars($e['nombre_puesto']); ?></td>
-                                    <td><?php echo htmlspecialchars($e['area']); ?></td>
-                                    <td><?php echo htmlspecialchars($e['modalidad']); ?></td>
-                                    <td><?php echo htmlspecialchars($e['ubicacion']); ?></td>
-                                    <td>₡<?php echo number_format($e['salario'], 0, ',', '.'); ?></td>
-                                    <td>
-                                        <a href="<?php echo APP_URL; ?>s-apply-to-job/?id=<?php echo $e['id_empleo']; ?>" class="btn btn-success btn-sm">Aplicar</a>
-                                    </td>
+                                    <th>Puesto</th>
+                                    <th>Área</th>
+                                    <th>Modalidad</th>
+                                    <th>Ubicación</th>
+                                    <th>Salario</th>
+                                    <th>Acción</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php else: ?>
-                    <div class="alert alert-info">No se encontraron empleos disponibles.</div>
-                <?php endif; ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($empleos as $e): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($e['nombre_puesto']); ?></td>
+                                        <td><?php echo htmlspecialchars($e['area']); ?></td>
+                                        <td><?php echo htmlspecialchars($e['modalidad']); ?></td>
+                                        <td><?php echo htmlspecialchars($e['ubicacion']); ?></td>
+                                        <td>₡<?php echo number_format($e['salario'], 0, ',', '.'); ?></td>
+                                        <td>
+                                            <a href="<?php echo APP_URL; ?>s-apply-to-job/?id=<?php echo $e['id_empleo']; ?>"
+                                                class="btn btn-success btn-sm">Aplicar</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="alert alert-info">No se encontraron empleos disponibles.</div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
-</html>
 
+</html>
