@@ -62,11 +62,13 @@ class loginController extends mainModel
 	/*----------  Controlador cerrar sesión  ----------*/
 	public function cerrarSesionControlador()
 	{
+		session_unset();   
 		session_destroy();
 		if (headers_sent()) {
-			echo "<script> window.location.href='" . APP_URL . "login/'; </script>";
+			echo "<script> window.location.href='" . APP_URL . "home/'; </script>";
 		} else {
-			header("Location: " . APP_URL . "login/");
+			header("Location: " . APP_URL . "home/");
+			exit();
 		}
 	}
 }

@@ -6,15 +6,16 @@ use app\models\mainModel;
 class aplicar_empleoController extends mainModel {
 
     public function aplicar_empleoController() {
-        // Obtener y limpiar datos
+        // Limpiar los datos recibidos
         $id_empleo = $this->limpiarCadena($_POST['id_empleo'] ?? '');
-        $id_estudiante = $this->limpiarCadena($_POST['id_alumno'] ?? '');
+        $id_usuario_estudiante = $this->limpiarCadena($_POST['id_alumno'] ?? '');
 
-        // Validar campos obligatorios
-        if (empty($id_empleo) || empty($id_estudiante)) {
+        // Validación de datos obligatorios
+        if (empty($id_empleo) || empty($id_usuario_estudiante)) {
             return "Faltan datos para aplicar.";
         }
 
+        
         // Validar que el empleo exista y esté activo
         $verificar_empleo = $this->ejecutarConsultaParametros(
             "SELECT estado FROM empleos WHERE id_empleo = :id",
@@ -35,7 +36,7 @@ class aplicar_empleoController extends mainModel {
             "SELECT 1 FROM postulaciones WHERE id_empleo = :Empleo AND id_usuario_estudiante = :Estudiante",
             [
                 ":Empleo" => $id_empleo,
-                ":Estudiante" => $id_estudiante
+                ":Estudiante" => $id_usuario_estudiante
             ]
         );
 
@@ -45,7 +46,7 @@ class aplicar_empleoController extends mainModel {
 
         // Datos para insertar la postulación
         $datos = [
-            ["campo_nombre" => "id_usuario_estudiante", "campo_marcador" => ":Estudiante", "campo_valor" => $id_estudiante],
+            ["campo_nombre" => "id_usuario_estudiante", "campo_marcador" => ":Estudiante", "campo_valor" => $id_usuario_estudiante],
             ["campo_nombre" => "id_empleo", "campo_marcador" => ":Empleo", "campo_valor" => $id_empleo],
             ["campo_nombre" => "fecha_postulacion", "campo_marcador" => ":Fecha", "campo_valor" => date("Y-m-d H:i:s")],
             ["campo_nombre" => "estado", "campo_marcador" => ":Estado", "campo_valor" => "Postulado"]
@@ -60,4 +61,3 @@ class aplicar_empleoController extends mainModel {
         }
     }
 }
-

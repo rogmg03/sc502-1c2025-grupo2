@@ -1,10 +1,12 @@
 <?php
-require_once ROOT_PATH . 'app/views/inc/session_start.php';
-require_once ROOT_PATH . 'app/controllers/postulacionesController.php';
+require_once __DIR__ . '../../inc/session_start.php';
 
-use app\controllers\verPostulacionesController;
+require_once __DIR__ . '../../../controllers/postulacionesController.php';
+require_once __DIR__ . '/../../../config/server.php';
 
-$controlador = new verPostulacionesController();
+use app\controllers\postulacionesController;
+
+$controlador = new postulacionesController();
 $id_estudiante = $_SESSION['id'] ?? null;
 
 // Obtener postulaciones activas del estudiante
@@ -28,14 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_postulacion'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 
 <body>
     <div class="vertical-nav">
-        <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
+        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
+            <span><?php echo $_SESSION['nombre']; ?></span>
+            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
+                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
+            </a>
+        </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-        <hr class="horizontal-divider" />
+        <hr class="horizontal-divider">
         <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
         <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>

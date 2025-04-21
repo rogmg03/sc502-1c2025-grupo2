@@ -7,7 +7,6 @@ class empleosModel {
         $this->db = $conexion;
     }
 
-    //Vista de empleos por id de reclutador
     public function obtenerEmpleosPorReclutador($idReclutador) {
         $sql = "SELECT id_empleo, nombre_puesto, area, descripcion, requisitos, modalidad, ubicacion, salario, fecha_publicacion, estado 
                 FROM empleos 
@@ -26,6 +25,7 @@ class empleosModel {
         $stmt->bindValue(':id_reclutador', $idReclutador, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
 
     //Vista de empleos activos desde el panel de usuario.
     public function obtenerEmpleosActivos($filtro = '') {
@@ -74,4 +74,5 @@ class empleosModel {
     
 
 }
+
 

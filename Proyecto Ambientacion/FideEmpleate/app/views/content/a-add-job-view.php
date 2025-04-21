@@ -124,8 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="correo"><?php echo $_SESSION['correo']; ?></div>
         <hr class="horizontal-divider" />
-        <a href="<?php echo APP_URL; ?>a-home/" class="link-activo">Inicio</a>
-        <a href="<?php echo APP_URL; ?>a-view-jobs/">Lista de empleos</a>
+        <a href="<?php echo APP_URL; ?>a-home/">Inicio</a>
+        <a href="<?php echo APP_URL; ?>a-view-jobs/" class="active-link">Lista de empleos</a>
         <a href="<?php echo APP_URL; ?>a-student-list/">Alumnos Disponibles</a>
         <a href="<?php echo APP_URL; ?>a-postings/">Postulaciones</a>
         <a href="<?php echo APP_URL; ?>a-chat/">Chat Alumnos</a>
