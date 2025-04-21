@@ -1,0 +1,2 @@
+{"session_id":3,"receptor":"1","contenido":"aerhh"}idConversacion = 1
+mensajeGuardado = ok

@@ -1,0 +1,6 @@
+Array
+(
+    [emisor] => 
+    [receptor] => 1
+    [contenido] => sad
+)
