@@ -5,6 +5,7 @@
 	class viewsModel{
 
 		/*---------- Modelo obtener vista ----------*/
+
 		protected function obtenerVistasModelo($vista) {
 			$partes = explode("/", $vista);
 			$nombreVista = $partes[0];
@@ -15,6 +16,7 @@
 				"a-delete-job", "userPhoto", "logOut", "register",
 				"s-view-cv", "s-add-cv", "s-apply-to-job", "s-edit-cv",
 				"s-edit-info", "a-edit-info", "a-postings", "a-chat", "s-chat"
+        "s-my-applications", "s-view-job", "s-edit-cv", "s-delete-cv", "s-view-job-application", "s-view-job-application-student", "s-view-job-application-employer",
 			];
 		
 			if (in_array($nombreVista, $listaBlanca)) {

@@ -29,117 +29,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .form-section { display: none; }
-        .form-section.active { display: block; }
-        .vertical-nav {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #001bb3;
-            padding-top: 20px;
-        }
-
-        .vertical-nav img {
-            display: block;
-            margin: 0 auto 20px auto;
-            height: 150px;
-            width: 150px;
-        }
-
-        .vertical-nav .usuario,
-        .vertical-nav .correo {
-            text-align: center;
-            color: mintcream;
-        }
-
-        .vertical-nav .usuario {
-            font-size: 20px;
-            margin-bottom: 1px;
-        }
-
-        .vertical-nav .correo {
-            font-size: 15px;
-            font-style: italic;
-            margin-bottom: 5px;
-        }
-
-        .vertical-nav .horizontal-divider {
-            border-top: 2px solid white;
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        .vertical-nav a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: mintcream;
-            display: block;
-        }
-
-        .vertical-nav a:hover {
-            background-color: #001bb3;
-        }
-
-        .vertical-nav a.link-activo {
-            background-color: white;
-            color: #001bb3;
-            font-weight: bold;
-        }
-
-        .logout-btn {
-            position: absolute;
-            bottom: 20px;
-            width: 90%;
-            left: 5%;
-            color: white;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 40px;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-        }
-
-        .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .card-form {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn-close { z-index: 10; }
-        
-    </style>
+    <link rel="stylesheet" href="<?php echo APP_URL; ?>app/views/css/styles.css">
 </head>
 <body>
-    <div class="vertical-nav">
-        <img src="../app/views/img/userImg.png" alt="Logo" />
-        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
-            <span><?php echo $_SESSION['nombre']; ?></span>
-            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
-                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
-            </a>
-        </div>
-        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-        <hr class="horizontal-divider" />
-        <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
+<div class="vertical-nav">
+    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
+    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+    <hr class="horizontal-divider" />
+    <a href="<?php echo APP_URL; ?>s-home/">Inicio</a>
         <a href="<?php echo APP_URL; ?>s-view-cv/" class="link-activo">Mis Curriculums</a>
-        <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
-        <a href="<?php echo APP_URL; ?>a-chat/">Chat</a>
-        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-    </div>
+    <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
+    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+</div>
 
     <div class="main-content">
         <h2>Agregar Curriculum</h2>

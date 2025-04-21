@@ -42,23 +42,18 @@ $valores = json_encode(array_column($datosGrafico, 'cantidad'));
 </head>
 
 <body>
-    <div class="vertical-nav">
-        <img src="../app/views/img/userImg.png" style="height: 150px; width: 150px" alt="Logo">
-        <div class="usuario d-flex align-items-center justify-content-center" style="gap: 8px;">
-            <span><?php echo $_SESSION['nombre']; ?></span>
-            <a href="<?php echo APP_URL; ?>s-edit-info/" title="Editar perfil">
-                <i class="bi bi-pencil-square" style="color: white; font-size: 1.2rem;"></i>
-            </a>
-        </div>
-        <div class="correo"><?php echo $_SESSION['correo']; ?></div>
-        <hr class="horizontal-divider">
-        <a href="<?php echo APP_URL; ?>s-home/" class="link-activo">Inicio</a>
-        <a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
-        <a href="<?php echo APP_URL; ?>s-view-jobs/">Lista de empleos</a>
-        <a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
-        <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
-    </div>
-
+<div class="vertical-nav">
+    <img src="<?php echo APP_URL; ?>app/views/img/userImg.png" alt="Logo" />
+    <div class="usuario"><?php echo $_SESSION['nombre']; ?></div>
+    <div class="correo"><?php echo $_SESSION['correo']; ?></div>
+    <hr class="horizontal-divider" />
+    <a href="<?php echo APP_URL; ?>s-home/" class="link-activo">Inicio</a>
+	<a href="<?php echo APP_URL; ?>s-view-cv/">Mis Curriculums</a>
+    <a href="<?php echo APP_URL; ?>s-view-jobs/">Empleos Disponibles</a>
+    <a href="<?php echo APP_URL; ?>s-my-applications/">Mis Postulaciones</a>
+	<a href="<?php echo APP_URL; ?>s-chat/">Chat</a>
+    <a href="<?php echo APP_URL; ?>logOut/" class="btn btn-secondary logout-btn">Logout</a>
+</div>
     <div class="main-content">
         <h2>Inicio</h2>
         <div class="container mt-4">
